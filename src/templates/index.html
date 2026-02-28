@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+
+{% block head_extra %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "{{ site_name }}",
+    "url": "{{ site_url }}",
+    "description": "{{ site_description }}",
+    "potentialAction": {
+        "@type": "SearchAction",
+        "target": "{{ site_url }}/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+    }
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero" id="hero">
+    <div class="hero-bg" style="background: radial-gradient(circle at center, #1b2838 0%, #0d1117 100%);"></div>
+    <div class="container hero-content">
+        <h1 class="hero-title">
+            Discover <span class="gradient-text">Public Datasets</span>
+        </h1>
+        <p class="hero-subtitle">
+            Find the perfect data for your next project. Browse <strong>{{ total_items }}+</strong> free datasets across
+            <strong>{{ total_categories }}</strong> categories.
+        </p>
+
+        <!-- Search Bar -->
+        <div class="search-wrapper" id="search-wrapper">
+            <div class="search-bar">
+                <span class="search-icon">🔍</span>
+                <input type="search" id="hero-search" class="search-input"
+                    placeholder="Search datasets... (e.g. Climate, Population, Finance)" autocomplete="off"
+                    aria-label="Search Public Datasets">
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-row">
+            <div class="stat-item">
+                <span class="stat-number" id="stat-apis">{{ total_items }}</span>
+                <span class="stat-label">Public Datasets</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="stat-categories">{{ total_categories }}</span>
+                <span class="stat-label">Categories</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">$0</span>
+                <span class="stat-label">Access Fees</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Category Cards -->
+<section class="categories-section" id="categories">
+    <div class="container">
+        <h2 class="section-title">Browse by Category</h2>
+        <p class="section-subtitle">Find the perfect dataset for your analysis or AI model</p>
+
+        <div class="category-grid" id="category-grid">
+            {% for cat in categories %}
+            <a href="/category/{{ cat.slug }}.html" class="category-card" id="cat-{{ cat.slug }}">
+                <div class="category-card-inner">
+                    <h3 class="category-name">{{ cat.name }}</h3>
+                    <span class="category-count">{{ cat.count }} Dataset{{ 's' if cat.count != 1 }}</span>
+                </div>
+                <span class="category-arrow">→</span>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Featured APIs -->
+<section class="featured-section" id="featured">
+    <div class="container">
+        <h2 class="section-title">Trending Datasets</h2>
+        <p class="section-subtitle">Highly curated public datasets our community loves</p>
+
+        <div class="items-grid" id="featured-grid">
+            {% for item in featured_items %}
+            <a href="/item/{{ item.slug }}.html" class="item-card" id="item-{{ item.slug }}">
+                <div class="item-card-header">
+                    <h3 class="item-title">{{ item.title }}</h3>
+                    <span class="item-category-badge">{{ item.category }}</span>
+                </div>
+                <p class="item-desc">{{ item.description | truncate_text }}</p>
+                <div class="item-meta">
+                    <span class="meta-badge badge-free">{{ item.format }} &bull; {{ item.size }}</span>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Ad Unit (Below Featured) -->
+<section class="ad-section">
+    <div class="container">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="{{ adsense_publisher_id }}"
+            data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section" id="cta">
+    <div class="container">
+        <div class="cta-card">
+            <h2>Missing an Awesome Dataset?</h2>
+            <p>Help the community by submitting a great public dataset you use.</p>
+            <a href="https://github.com/dayashimoga/datasets-directory/issues/new" class="btn btn-primary"
+                id="cta-submit-btn" target="_blank" rel="noopener">
+                📤 Submit to Directory
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts_extra %}
+<script>
+    // Client-side search redirect to Google site search
+    document.getElementById('hero-search').addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' && this.value.trim()) {
+            const query = encodeURIComponent(this.value.trim());
+            window.location.href = 'https://www.google.com/search?q=site:' + encodeURIComponent('{{ site_url }}') + '+' + query;
+        }
+    });
+</script>
+{% endblock %}

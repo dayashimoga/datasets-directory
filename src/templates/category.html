@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block head_extra %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "{{ category_name }} Public Datasets",
+    "description": "Browse {{ item_count }} free {{ category_name }} public datasets for your next project.",
+    "url": "{{ site_url }}/category/{{ category_slug }}.html",
+    "numberOfItems": {{ item_count }}
+}
+</script>
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site_url }}"},
+        {"@type": "ListItem", "position": 2, "name": "{{ category_name }}"}
+    ]
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb" id="breadcrumb" aria-label="Breadcrumb">
+        <ol>
+            <li><a href="/">Home</a></li>
+            <li aria-current="page">{{ category_name }}</li>
+        </ol>
+    </nav>
+
+    <!-- Category Header -->
+    <header class="category-header" id="category-header">
+        <h1 class="category-page-title">{{ category_name }} Datasets</h1>
+        <p class="category-page-desc">
+            Browse <strong>{{ item_count }}</strong> free public {{ category_name }} dataset{{ 's' if item_count != 1
+            }}. Download and explore today.
+        </p>
+    </header>
+
+    <div class="category-layout">
+        <!-- Items Grid -->
+        <section class="category-items" id="category-items">
+            <!-- Filter Bar -->
+            <div class="filter-bar" id="filter-bar">
+                <div class="search-bar compact">
+                    <span class="search-icon">🔍</span>
+                    <input type="search" id="category-search" class="search-input"
+                        placeholder="Filter {{ category_name }} datasets..." autocomplete="off"
+                        aria-label="Filter Datasets">
+                </div>
+                <div class="filter-stats">
+                    <span id="visible-count">{{ item_count }}</span> of {{ item_count }} datasets shown
+                </div>
+            </div>
+
+            <div class="items-grid" id="items-grid">
+                {% for item in items %}
+                <a href="/item/{{ item.slug }}.html" class="item-card" id="item-{{ item.slug }}"
+                    data-title="{{ item.title | lower }}" data-desc="{{ item.description | lower }}">
+                    <div class="item-card-header">
+                        <h3 class="item-title">{{ item.title }}</h3>
+                        <span class="item-category-badge small">{{ item.category }}</span>
+                    </div>
+                    <p class="item-desc">{{ item.description | truncate_text }}</p>
+                    <div class="item-meta">
+                        <span class="meta-badge badge-free">{{ item.format }} &bull; {{ item.size }}</span>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+
+            <!-- No Results -->
+            <div class="no-results" id="no-results" style="display: none;">
+                <p>No datasets match your filter. Try a different search term.</p>
+            </div>
+        </section>
+
+        <!-- Sidebar -->
+        <aside class="category-sidebar" id="category-sidebar">
+            <!-- Ad Unit -->
+            <div class="ad-unit sidebar-ad">
+                <ins class="adsbygoogle" style="display:block" data-ad-client="{{ adsense_publisher_id }}"
+                    data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+
+            <!-- All Categories -->
+            <div class="sidebar-card" id="sidebar-categories">
+                <h4>All Categories</h4>
+                <ul class="sidebar-cat-list">
+                    {% for cat in all_categories %}
+                    <li class="{% if cat.slug == category_slug %}active{% endif %}">
+                        <a href="/category/{{ cat.slug }}.html">
+                            {{ cat.name }}
+                            <span class="cat-count">({{ cat.count }})</span>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </aside>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts_extra %}
+<script>
+    // Client-side category filter
+    (function () {
+        const input = document.getElementById('category-search');
+        const grid = document.getElementById('items-grid');
+        const countEl = document.getElementById('visible-count');
+        const noResults = document.getElementById('no-results');
+        if (!input || !grid) return;
+
+        const cards = grid.querySelectorAll('.item-card');
+
+        input.addEventListener('input', function () {
+            const query = this.value.toLowerCase().trim();
+            let visible = 0;
+
+            cards.forEach(function (card) {
+                const title = card.getAttribute('data-title') || '';
+                const desc = card.getAttribute('data-desc') || '';
+                const match = !query || title.includes(query) || desc.includes(query);
+                card.style.display = match ? '' : 'none';
+                if (match) visible++;
+            });
+
+            if (countEl) countEl.textContent = visible;
+            if (noResults) noResults.style.display = visible === 0 ? '' : 'none';
+        });
+    })();
+</script>
+{% endblock %}

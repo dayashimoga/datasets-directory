@@ -1,0 +1,48 @@
+﻿name: Deploy to Cloudflare Pages
+# Builds the static site and deploys to Cloudflare Pages on every push to main.
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Validate External Links
+        run: |
+          python scripts/check_links.py --output-report link_report.md
+          cat link_report.md >> $GITHUB_STEP_SUMMARY
+
+      - name: Build site
+        run: |
+          python -m scripts.build_directory
+          python -m scripts.generate_sitemap
+        env:
+          SITE_URL: ${{ secrets.SITE_URL || vars.SITE_URL || 'https://datasets.quickutils.top' }}
+          GA_MEASUREMENT_ID: ${{ secrets.GA_MEASUREMENT_ID || vars.GA_MEASUREMENT_ID || 'G-LKF615Z8NY' }}
+          ADSENSE_PUBLISHER_ID: ${{ secrets.ADSENSE_PUBLISHER_ID }}
+          AMAZON_AFFILIATE_TAG: ${{ secrets.AMAZON_AFFILIATE_TAG }}
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=datasets-directory
+
+

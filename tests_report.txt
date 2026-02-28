@@ -1,0 +1,33 @@
+============================= test session starts ==============================
+platform linux -- Python 3.11.14, pytest-9.0.2, pluggy-1.6.0
+rootdir: /app
+plugins: cov-7.0.0
+collected 120 items
+
+tests/test_build_directory.py .................                          [ 14%]
+tests/test_fetch_data.py ........                                        [ 20%]
+tests/test_generate_sitemap.py .........................                 [ 41%]
+tests/test_post_social.py ......................                         [ 60%]
+tests/test_templates.py ...................                              [ 75%]
+tests/test_utils.py .............................                        [100%]
+
+=============================== warnings summary ===============================
+../usr/local/lib/python3.11/site-packages/htmlmin/main.py:28
+  /usr/local/lib/python3.11/site-packages/htmlmin/main.py:28: DeprecationWarning: 'cgi' is deprecated and slated for removal in Python 3.13
+    import cgi
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================================ tests coverage ================================
+_______________ coverage: platform linux, python 3.11.14-final-0 _______________
+
+Name                          Stmts   Miss  Cover   Missing
+-----------------------------------------------------------
+scripts/__init__.py               0      0   100%
+scripts/build_directory.py      102      8    92%   17, 146-148, 191, 358, 383, 387
+scripts/fetch_data.py            82     15    82%   89, 94, 138, 142-144, 167-168, 183-185, 189-192
+scripts/generate_sitemap.py      86      8    91%   16, 31, 92, 142, 160, 162, 188, 192
+scripts/post_social.py           63      1    98%   152
+scripts/utils.py                 51      2    96%   60, 79
+-----------------------------------------------------------
+TOTAL                           384     34    91%
+======================== 120 passed, 1 warning in 1.53s ========================
