@@ -2,7 +2,7 @@
     {
         "slug": "mnist",
         "title": "MNIST",
-        "url": "https://yann.lecun.com/exdb/mnist/",
+        "url": "https://www.kaggle.com/datasets/hojjatk/mnist-dataset",
         "description": "Database of handwritten digits.",
         "category": "Computer Vision",
         "format": "IDX",
@@ -68,7 +68,7 @@
     {
         "slug": "wikitext",
         "title": "WikiText",
-        "url": "https://blog.einstein.ai/the-wikitext-long-term-dependency-language-modeling-dataset/",
+        "url": "https://paperswithcode.com/dataset/wikitext-103",
         "description": "Language modeling dataset.",
         "category": "Natural Language",
         "format": "Text",
@@ -156,7 +156,7 @@
     {
         "slug": "kaggle-titanic",
         "title": "Titanic Dataset",
-        "url": "https://www.kaggle.com/c/titanic/data",
+        "url": "https://www.kaggle.com/competitions/titanic/data",
         "description": "Machine learning from disaster.",
         "category": "General",
         "format": "CSV",
@@ -178,7 +178,7 @@
     {
         "slug": "who-data",
         "title": "WHO Data",
-        "url": "https://www.who.int/data",
+        "url": "https://data.who.int/",
         "description": "Global Health Observatory.",
         "category": "Healthcare",
         "format": "CSV",
@@ -211,7 +211,7 @@
     {
         "slug": "gtd",
         "title": "Global Terrorism Database",
-        "url": "https://www.start.umd.edu/gtd/",
+        "url": "https://www.kaggle.com/datasets/START-UMD/gtd",
         "description": "Information on terrorist events.",
         "category": "Government & Public Sector",
         "format": "CSV",
@@ -266,7 +266,7 @@
     {
         "slug": "crypto-historical",
         "title": "Crypto Historical Data",
-        "url": "https://www.kaggle.com/mczielinski/bitcoin-historical-data",
+        "url": "https://www.kaggle.com/datasets/mczielinski/bitcoin-historical-data",
         "description": "Bitcoin data.",
         "category": "Finance",
         "format": "CSV",
@@ -420,7 +420,7 @@
     {
         "slug": "lfw",
         "title": "Labeled Faces in the Wild",
-        "url": "http://vis-www.cs.umass.edu/lfw/",
+        "url": "https://www.kaggle.com/datasets/jessicali9530/lfw-dataset",
         "description": "Face recognition dataset.",
         "category": "Computer Vision",
         "format": "JPEG",
@@ -541,7 +541,7 @@
     {
         "slug": "ucf101",
         "title": "UCF101",
-        "url": "https://www.crcv.ucf.edu/data/UCF101.php",
+        "url": "https://www.kaggle.com/datasets/simonjisu/ucf101",
         "description": "Action recognition dataset.",
         "category": "Computer Vision",
         "format": "AVI",

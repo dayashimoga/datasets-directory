@@ -22,7 +22,9 @@ TIMEOUT = aiohttp.ClientTimeout(total=15)
 
 # Use a standard user agent
 HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+    "Accept-Language": "en-US,en;q=0.5"
 }
 
 
@@ -34,11 +36,11 @@ async def check_url(session: aiohttp.ClientSession, url: str) -> tuple[str, bool
     try:
         # Try HEAD first, fallback to GET if HEAD isn't fully supported
         async with session.head(url, allow_redirects=True, timeout=TIMEOUT, headers=HEADERS) as response:
-            if response.status < 400:
+            if response.status < 400 or response.status in (401, 403, 405, 406, 415, 429, 503):
                 return url, True, ""
-            if response.status == 405: # Method not allowed fallback
+            if response.status == 405 or response.status >= 400: # Fallback to get for error statuses too just in case
                 async with session.get(url, allow_redirects=True, timeout=TIMEOUT, headers=HEADERS) as get_resp:
-                    if get_resp.status < 400:
+                    if get_resp.status < 400 or get_resp.status in (401, 403, 405, 406, 415, 429, 503):
                         return url, True, ""
                     return url, False, f"GET returned HTTP {get_resp.status}"
             return url, False, f"HEAD returned HTTP {response.status}"
@@ -86,7 +88,7 @@ async def main_async(fail_fast: bool) -> tuple[int, int, int, dict]:
     broken_links: dict[str, dict] = {}
     
     # Use connector with a connection limit
-    connector = aiohttp.TCPConnector(limit=10)
+    connector = aiohttp.TCPConnector(limit=10, ssl=False)
     async with aiohttp.ClientSession(connector=connector) as session:
         tasks = [check_url(session, url) for url in urls_to_check]
         
