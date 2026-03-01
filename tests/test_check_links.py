@@ -44,7 +44,7 @@ class TestCheckUrl:
 
     async def test_head_fails_fallback_to_get_success(self):
         mock_head_resp = AsyncMock()
-        mock_head_resp.status = 405  # Method not allowed
+        mock_head_resp.status = 404  # Wait for 404 to trigger fallback
         mock_head_ctx = AsyncMock()
         mock_head_ctx.__aenter__.return_value = mock_head_resp
         mock_head_ctx.__aexit__.return_value = None
@@ -65,7 +65,7 @@ class TestCheckUrl:
 
     async def test_head_fails_fallback_to_get_fails(self):
         mock_head_resp = AsyncMock()
-        mock_head_resp.status = 405
+        mock_head_resp.status = 404
         mock_head_ctx = AsyncMock()
         mock_head_ctx.__aenter__.return_value = mock_head_resp
         mock_head_ctx.__aexit__.return_value = None
@@ -91,12 +91,19 @@ class TestCheckUrl:
         mock_head_ctx.__aenter__.return_value = mock_head_resp
         mock_head_ctx.__aexit__.return_value = None
 
+        mock_get_resp = AsyncMock()
+        mock_get_resp.status = 500
+        mock_get_ctx = AsyncMock()
+        mock_get_ctx.__aenter__.return_value = mock_get_resp
+        mock_get_ctx.__aexit__.return_value = None
+
         mock_session = MagicMock()
         mock_session.head.return_value = mock_head_ctx
+        mock_session.get.return_value = mock_get_ctx
 
         url, is_valid, error = await check_url(mock_session, "https://test.com")
         assert not is_valid
-        assert "HEAD returned HTTP 500" in error
+        assert "GET returned HTTP 500" in error
 
     async def test_timeout_error(self):
         import asyncio
