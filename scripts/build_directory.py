@@ -170,8 +170,8 @@ def create_jinja_env() -> Environment:
             "build_date": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
             "current_year": datetime.now(timezone.utc).year,
             "site_description": SITE_DESCRIPTION,
-            "ga_measurement_id": (os.environ.get("GA_MEASUREMENT_ID") or "").strip() or "G-LKF615Z8NY",
-            "adsense_publisher_id": (os.environ.get("ADSENSE_PUBLISHER_ID") or "").strip() or "ca-pub-XXXXXXXXXX",
+            "ga_measurement_id": (os.environ.get("GA_MEASUREMENT_ID") or "").strip() or "G-QPDP38ZCCV",
+            "adsense_publisher_id": (os.environ.get("ADSENSE_PUBLISHER_ID") or "").strip() or "ca-pub-5193703345853377",
             "amazon_affiliate_tag": AMAZON_TAG,
         }
     )
