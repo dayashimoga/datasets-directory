@@ -34,7 +34,7 @@ from scripts.utils import (
 )
 
 # Amazon Affiliate tag from environment variable
-AMAZON_TAG = (os.environ.get("AMAZON_AFFILIATE_TAG") or "").strip() or "quickutils-20"
+AMAZON_TAG = (os.environ.get("AMAZON_AFFILIATE_TAG") or "").strip() or "ds-quickutils-21"
 
 # Curated book recommendations per category (Amazon affiliate links)
 BOOK_RECOMMENDATIONS = {
