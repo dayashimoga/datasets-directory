@@ -32,6 +32,8 @@ jobs:
         run: |
           python -m scripts.build_directory
           python -m scripts.generate_sitemap
+          # Generate IndexNow Key
+          echo "a6f05b1c58c249a0b06b03ebdf691df5" > dist/a6f05b1c58c249a0b06b03ebdf691df5.txt
         env:
           SITE_URL: ${{ secrets.SITE_URL || vars.SITE_URL || 'https://datasets.quickutils.top' }}
           GA_MEASUREMENT_ID: ${{ secrets.GA_MEASUREMENT_ID || vars.GA_MEASUREMENT_ID || 'G-LKF615Z8NY' }}
@@ -44,5 +46,8 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy dist --project-name=datasets-directory
+
+      - name: Ping Search Engines (IndexNow)
+        run: python scripts/indexnow_submit.py ${{ vars.SITE_URL || 'https://datasets.quickutils.top' }} dist a6f05b1c58c249a0b06b03ebdf691df5
 
 
