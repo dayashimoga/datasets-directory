@@ -548,5 +548,155 @@
         "size": "6.5 GB",
         "license": "Custom",
         "id": "50"
+    },
+    {
+        "slug": "common-crawl",
+        "title": "Common Crawl",
+        "url": "https://commoncrawl.org/",
+        "description": "Petabytes of web crawl data collected over 12 years for NLP and web research applications.",
+        "category": "NLP",
+        "format": "WARC",
+        "size": "3.15 PB",
+        "license": "Open"
+    },
+    {
+        "slug": "the-pile",
+        "title": "The Pile",
+        "url": "https://pile.eleuther.ai/",
+        "description": "800GB open-source language modeling dataset curated from 22 diverse high-quality sources for training LLMs.",
+        "category": "NLP",
+        "format": "JSONL",
+        "size": "825 GB",
+        "license": "MIT"
+    },
+    {
+        "slug": "wikitext-103",
+        "title": "WikiText-103",
+        "url": "https://huggingface.co/datasets/Salesforce/wikitext",
+        "description": "Long-term dependency language modeling dataset with 103 million tokens from verified Wikipedia articles.",
+        "category": "NLP",
+        "format": "TXT",
+        "size": "516 MB",
+        "license": "CC BY-SA 3.0"
+    },
+    {
+        "slug": "glue-benchmark",
+        "title": "GLUE Benchmark",
+        "url": "https://gluebenchmark.com/",
+        "description": "General Language Understanding Evaluation benchmark for measuring NLP model performance across 9 tasks.",
+        "category": "NLP",
+        "format": "TSV",
+        "size": "250 MB",
+        "license": "Custom"
+    },
+    {
+        "slug": "squad-v2",
+        "title": "SQuAD 2.0",
+        "url": "https://rajpurkar.github.io/SQuAD-explorer/",
+        "description": "Stanford Question Answering Dataset with 150,000+ questions and unanswerable questions for reading comprehension.",
+        "category": "NLP",
+        "format": "JSON",
+        "size": "45 MB",
+        "license": "CC BY-SA 4.0"
+    },
+    {
+        "slug": "imagenet",
+        "title": "ImageNet (ILSVRC)",
+        "url": "https://www.image-net.org/",
+        "description": "14 million hand-annotated images across 22,000 categories, the gold standard for image classification research.",
+        "category": "Computer Vision",
+        "format": "JPEG",
+        "size": "150 GB",
+        "license": "Custom Academic"
+    },
+    {
+        "slug": "coco-dataset",
+        "title": "COCO Dataset",
+        "url": "https://cocodataset.org/",
+        "description": "330K images with 80+ object categories, keypoint detection, and panoptic segmentation annotations.",
+        "category": "Computer Vision",
+        "format": "JSON + JPEG",
+        "size": "25 GB",
+        "license": "CC BY 4.0"
+    },
+    {
+        "slug": "open-images-v7",
+        "title": "Open Images V7",
+        "url": "https://storage.googleapis.com/openimages/web/index.html",
+        "description": "9 million images with 36 million labels for object detection, segmentation, and visual relationship detection.",
+        "category": "Computer Vision",
+        "format": "CSV + JPEG",
+        "size": "561 GB",
+        "license": "CC BY 4.0"
+    },
+    {
+        "slug": "celeba",
+        "title": "CelebA",
+        "url": "https://mmlab.ie.cuhk.edu.hk/projects/CelebA.html",
+        "description": "200K celebrity face images with 40 attribute annotations for facial recognition and GAN research.",
+        "category": "Computer Vision",
+        "format": "JPEG",
+        "size": "1.4 GB",
+        "license": "Non-Commercial"
+    },
+    {
+        "slug": "cifar-100",
+        "title": "CIFAR-100",
+        "url": "https://www.cs.toronto.edu/~kriz/cifar.html",
+        "description": "60,000 32x32 color images in 100 classes grouped into 20 superclasses for fine-grained image classification.",
+        "category": "Computer Vision",
+        "format": "Binary",
+        "size": "161 MB",
+        "license": "MIT"
+    },
+    {
+        "slug": "yahoo-finance-historical",
+        "title": "Yahoo Finance Historical Data",
+        "url": "https://finance.yahoo.com/",
+        "description": "Historical stock prices, dividends, and splits for thousands of global equities, ETFs, and indices.",
+        "category": "Finance Data",
+        "format": "CSV",
+        "size": "Variable",
+        "license": "Fair Use"
+    },
+    {
+        "slug": "sec-edgar",
+        "title": "SEC EDGAR",
+        "url": "https://www.sec.gov/edgar/searchedgar/companysearch",
+        "description": "Full-text search of SEC filings including 10-K, 10-Q, 8-K reports for US publicly traded companies.",
+        "category": "Finance Data",
+        "format": "XML + HTML",
+        "size": "1+ TB",
+        "license": "Public Domain"
+    },
+    {
+        "slug": "world-bank-open-data",
+        "title": "World Bank Open Data",
+        "url": "https://data.worldbank.org/",
+        "description": "Free access to global development data including GDP, population, health, and education indicators for 217 countries.",
+        "category": "Finance Data",
+        "format": "CSV + JSON",
+        "size": "Variable",
+        "license": "CC BY 4.0"
+    },
+    {
+        "slug": "imf-data",
+        "title": "IMF Data",
+        "url": "https://data.imf.org/",
+        "description": "International Monetary Fund datasets on exchange rates, balance of payments, government finance, and global trade.",
+        "category": "Finance Data",
+        "format": "CSV + SDMX",
+        "size": "Variable",
+        "license": "Open"
+    },
+    {
+        "slug": "fred-data",
+        "title": "FRED Economic Data",
+        "url": "https://fred.stlouisfed.org/",
+        "description": "816,000+ US and international economic time series from the Federal Reserve Bank of St. Louis.",
+        "category": "Finance Data",
+        "format": "CSV + JSON",
+        "size": "Variable",
+        "license": "Public Domain"
     }
 ]

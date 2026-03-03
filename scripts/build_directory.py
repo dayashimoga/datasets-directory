@@ -124,6 +124,14 @@ BOOK_RECOMMENDATIONS = {
     "Open Data": [
         {"title": "Open Data Now", "author": "Joel Gurin", "asin": "0071829776"},
     ],
+    "NLP": [
+        {"title": "Speech and Language Processing", "author": "Dan Jurafsky", "asin": "0131873210"},
+        {"title": "Natural Language Processing with Transformers", "author": "Lewis Tunstall", "asin": "1098136799"},
+    ],
+    "Finance Data": [
+        {"title": "Python for Finance", "author": "Yves Hilpisch", "asin": "1492024333"},
+        {"title": "The Intelligent Investor", "author": "Benjamin Graham", "asin": "0060555661"},
+    ],
 }
 
 # Default books for categories without specific recommendations
