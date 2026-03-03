@@ -86,14 +86,28 @@ def main():
         logger.error("Usage: python post_pinterest.py <host_url> <board_name> <assets_dir>")
         sys.exit(1)
 
+    if not PINTEREST_ACCESS_TOKEN:
+        logger.info("PINTEREST_ACCESS_TOKEN not set. Skipping Pinterest pinning.")
+        sys.exit(0)
+
     host_url = sys.argv[1].rstrip("/")
     board_name = sys.argv[2]
     assets_dir = sys.argv[3]
     
-    db_path = Path(f"{assets_dir}/data/database.json")
-    if not db_path.exists():
-        logger.error(f"Could not locate {db_path} to parse tools.")
-        sys.exit(1)
+    # Try multiple possible database paths
+    db_path = None
+    for candidate in [
+        Path(f"{assets_dir}/data/database.json"),
+        Path("data/database.json"),
+        Path(f"{assets_dir}/../data/database.json"),
+    ]:
+        if candidate.exists():
+            db_path = candidate
+            break
+    
+    if db_path is None:
+        logger.error(f"Could not locate database.json in {assets_dir}/data/ or data/. Skipping.")
+        sys.exit(0)
         
     with open(db_path, "r", encoding="utf-8") as f:
         items = json.load(f)
@@ -118,7 +132,7 @@ def main():
         
         # Craft a highly SEO optimized Pinterest Description
         desc_tags = f"#{item['category'].replace(' ', '')} #FreeTools #Developer"
-        full_desc = f"Discover {item['title']} - {item['short_description']}! Perfect for {item['category']} needs. {desc_tags}"
+        full_desc = f"Discover {item['title']} - {item.get('description', '')}! Perfect for {item.get('category', 'general')} needs. {desc_tags}"
         
         success = create_pin(board_id, item["title"], full_desc, item_url, image_url)
         if success:
