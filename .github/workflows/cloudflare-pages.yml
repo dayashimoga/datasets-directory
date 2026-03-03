@@ -50,4 +50,9 @@ jobs:
       - name: Ping Search Engines (IndexNow)
         run: python scripts/indexnow_submit.py ${{ vars.SITE_URL || 'https://datasets.quickutils.top' }} dist a6f05b1c58c249a0b06b03ebdf691df5
 
+      - name: Auto-Pin to Pinterest
+        run: python scripts/post_pinterest.py ${{ vars.SITE_URL || 'https://datasets.quickutils.top' }} "Free Public Datasets" dist
+        env:
+          PINTEREST_ACCESS_TOKEN: ${{ secrets.PINTEREST_ACCESS_TOKEN }}
+
 
