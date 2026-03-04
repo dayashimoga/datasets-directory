@@ -58,6 +58,9 @@ package-lock.json
 .venv*/
 venv/
 env/
+p_venv/
+.venv_test/
+.debug-venv/
 
 # Ignore text logs but keep requirements.txt
 *.txt
